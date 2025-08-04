@@ -8,3 +8,6 @@ producer = KafkaProducer(
 
 def publish_user_created(user):
     producer.send('user-created', user)
+
+
+def publish_

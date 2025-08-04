@@ -1,8 +1,8 @@
-from mongoengine import connect
-
+from pymongo import MongoClient,errors
 def init_db():
-    connect(
-        db="order_db",
-        host="localhost",
-        port=27017
-    )
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["order_db"]
+    orders_collection = db["orders"]
+
+
+    return orders_collection
