@@ -1,0 +1,17 @@
+
+
+services:
+  zookeeper:
+    image : docker.arvancloud.ir/zookeeper
+    ports :
+      - "2080:2080"
+
+  kakfa:
+    image : docker.arvancloud.ir/kafka
+    ports:
+      - "9092:9092"
+
+
+
+    depends_on : 
+      - zookeeper      
