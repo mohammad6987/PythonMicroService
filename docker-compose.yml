@@ -1,6 +1,17 @@
 
 
 services:
+
+  mongo:
+    image : docker.arvancloud.ir/mongo
+    container_name : mongo
+    restart : unless-stopped
+    ports : 
+      - "27017 : 27017"
+    volumes :
+      - mongo_data:/data/db  
+
+
   zookeeper:
     image : docker.arvancloud.ir/zookeeper
     ports :
@@ -8,10 +19,10 @@ services:
 
   kakfa:
     image : docker.arvancloud.ir/kafka
-    ports:
+    ports :
       - "9092:9092"
-
-
-
     depends_on : 
       - zookeeper      
+
+volumes : 
+  mongo_data : 
