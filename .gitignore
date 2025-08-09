@@ -1,2 +1,5 @@
 .env
 log.txt
+order_service/__pycache__
+user_service/__pycache__
+.vscode
