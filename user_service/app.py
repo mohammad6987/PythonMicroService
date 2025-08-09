@@ -53,38 +53,43 @@ def get_messages_from_services():
             print("Invalid JSON message:", message.value, e)
 
 
+
 def get_username_and_return_info(msg):
     username = msg.get("username")
-
+    reply_topic = msg.get("reply_topic")
+    correlation_id = msg.get("correlation_id")
     
-    if not username :
+    if not username or not reply_topic:
         print("Invalid message: missing username or reply_topic")
         return
 
     user_doc = users_collection.find_one({"username": username})
     
+    response = {
+        "correlation_id": correlation_id,
+        "header": "user_info_response"
+    }
+    
     if user_doc:
-        user_doc['_id'] = str(user_doc['_id']) 
-        response = {
-            "header": "user_info_response",
+        response.update({
             "status": "success",
             "user_info": {
-                "id": user_doc['_id'],
+                "id": str(user_doc['_id']),
                 "username": user_doc['username'],
                 "name": user_doc['name'],
                 "email": user_doc['email'],
                 "phone": user_doc['phone']
             }
-        }
+        })
     else:
-        response = {
-            "header": "user_info_response",
+        response.update({
             "status": "error",
             "message": f"User {username} not found"
-        }
+        })
     
-    # Send response to the reply_topic
-    kafka_queue.send(reply_topic, value=response) 
+    kafka_queue.send(reply_topic, value=response)
+
+
 
 if __name__ == '__main__':
     Thread(target= get_messages_from_services , daemon= True).start()
