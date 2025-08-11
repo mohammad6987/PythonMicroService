@@ -1,3 +1,4 @@
+env
 .env
 log.txt
 order_service/__pycache__

@@ -2,6 +2,41 @@ version: "3.8"
 
 services:
 
+  api-gateway:
+    build: ./api_gateway
+    ports:
+      - "5000:5000"
+    environment:
+      - ORDER_SERVICE_URL=http://order-service:5002
+      - USER_SERVICE_URL=http://user-service:5001
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    depends_on:
+      - order-service
+      - user-service
+      - kafka
+
+  order-service:
+    build: ./order_service
+    ports:
+      - "5002:5002"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    depends_on:
+      - mongo
+      - kafka
+
+  user-service:
+    build: ./user_service
+    ports:
+      - "5001:5001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    depends_on:
+      - mongo
+      - kafka  
+
   mongo:
     image: docker.arvancloud.ir/mongo
     container_name: mongo

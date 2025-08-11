@@ -1,6 +1,8 @@
 from pymongo import MongoClient,errors
+import os
 def init_db():
-    client = MongoClient("mongodb://localhost:27017/")
+    mongo_uri = os.getenv('MONGO_URI', 'mongodb://localhost:27017/')
+    client = MongoClient(mongo_uri)
     db = client["user_db"]
     users_collection = db["users"]
 
