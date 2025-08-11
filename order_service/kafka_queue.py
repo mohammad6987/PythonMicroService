@@ -1,6 +1,6 @@
 from kafka import KafkaProducer,KafkaConsumer
 import json
-
+import os
 
 
 def init_queue() :

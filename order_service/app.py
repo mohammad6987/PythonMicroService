@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from db import init_db
 from models import Order
 from kafka import KafkaProducer, KafkaConsumer
+import threading
 from threading import Thread
 import uuid
 import json
@@ -10,14 +11,14 @@ from bson import ObjectId
 
 app = Flask(__name__)
 order_collection = init_db()
-
+time.sleep(30)
 producer = KafkaProducer(
     bootstrap_servers='kafka:9092',
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
 user_responses = {}
-response_lock = Thread.Lock()
+response_lock = threading.Lock()
 
 
 def start_consumer():
@@ -26,6 +27,7 @@ def start_consumer():
         bootstrap_servers='kafka:9092',
         auto_offset_reset='earliest',
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
+    )
     
     for message in consumer:
         msg_value = message.value

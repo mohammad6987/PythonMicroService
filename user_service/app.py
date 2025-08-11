@@ -4,8 +4,10 @@ from models import User
 from kafka_queue import init_queue,init_consumer
 from threading import Thread
 import json
+import time
 app = Flask(__name__)
 users_collection =init_db()
+time.sleep(30)
 kafka_queue = init_queue()
 kafka_consumer =init_consumer()
 @app.route('/users', methods=['POST'])
