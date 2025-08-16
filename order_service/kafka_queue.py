@@ -21,7 +21,7 @@ def init_consumer():
         'orders',
         bootstrap_servers=bootstrap_servers,
         value_deserializer=safe_deserializer,
-        group_id='order-service-group',
+        group_id='service-group',
         auto_offset_reset='earliest'
     )
     return consumer

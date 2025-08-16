@@ -8,9 +8,9 @@ from kafka import KafkaConsumer
 app = Flask(__name__)
 
 # Service URLs
-ORDER_SERVICE_URL = os.getenv('ORDER_SERVICE_URL', 'http://order-service:5002')
-USER_SERVICE_URL = os.getenv('USER_SERVICE_URL', 'http://user-service:5001')
-
+ORDER_SERVICE_URL = os.getenv('ORDER_SERVICE_URL', 'http://localhost:5002')
+USER_SERVICE_URL = os.getenv('USER_SERVICE_URL', 'http://localhost:5001')
+print(ORDER_SERVICE_URL , USER_SERVICE_URL)
 
 
 def forward_request(service_url, path):

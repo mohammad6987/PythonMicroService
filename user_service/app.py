@@ -96,4 +96,4 @@ def get_username_and_return_info(msg):
 if __name__ == '__main__':
     Thread(target= get_messages_from_services , daemon= True).start()
     
-    app.run(port=5001)
+    app.run(host='0.0.0.0',port=5001)

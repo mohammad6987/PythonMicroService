@@ -1,12 +1,12 @@
 
 
 class Order:
-    def __init__(self, username, product_name, price , quantity , email):
+    def __init__(self, username, product_name, price , quantity):
         self.username = username
         self.product_name = product_name
         self.price = price
         self.quantity = quantity
-        self.email = email
+
 
     def to_dict(self):
         return {
@@ -14,5 +14,4 @@ class Order:
             "product_name": self.product_name,
             "price": self.price,
             "quantity":self.quantity,
-            "email" : self.email
         }

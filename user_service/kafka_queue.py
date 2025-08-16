@@ -16,12 +16,12 @@ def init_queue() :
 
 def init_consumer():
     bootstrap_servers = os.getenv('KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
-    """Start Kafka consumer for reading messages."""
+
     consumer = KafkaConsumer(
         'orders',
         bootstrap_servers= bootstrap_servers,
         value_deserializer=safe_deserializer,
-        group_id='user-service-group',
+        group_id='service-group',
         auto_offset_reset='earliest'
     )
     return consumer
